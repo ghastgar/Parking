@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class MyCustomAdapter extends ArrayAdapter {
     private ArrayList<String> strings;
-    //private ArrayList<Tiquet> tiquets;
+    private ArrayList<Ticket> tiquets;
 
     public MyCustomAdapter(Context context, ArrayList<String> objects) {
         super(context, R.layout.custom_list_item, objects);
