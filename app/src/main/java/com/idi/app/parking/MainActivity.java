@@ -9,9 +9,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,8 +34,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         GridView gridView = (GridView) findViewById(R.id.parking_grid);
-        String[] strings = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, strings);
+        String[] strings1 = {"1", "2", "3", "4", "5", "6", "7",
+                "8", "9", "10", "11", "12", "13", "14", "15"};
+        ArrayList<String> strings = new ArrayList<String>(Arrays.asList(strings1));
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.custom_list_item, strings);
+        MyCustomAdapter adapter = new MyCustomAdapter(getApplicationContext(), strings);
         gridView.setAdapter(adapter);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
