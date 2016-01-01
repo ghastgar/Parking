@@ -20,6 +20,7 @@ public class Ticket {
     private double price;
 
     public Ticket(int spot, String licensePlate) {
+        // if (spot <= 0 || spot > 15) return;
         this.parkingSpot = spot;
         this.licensePlate = licensePlate;
         Calendar c = Calendar.getInstance();
@@ -42,4 +43,7 @@ public class Ticket {
         return licensePlate;
     }
 
+    public int getParkingSpot() {
+        return parkingSpot;
+    }
 }

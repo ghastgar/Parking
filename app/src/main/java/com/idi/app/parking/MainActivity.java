@@ -13,9 +13,10 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
+
+    private int NSPOTS = 15;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +35,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         GridView gridView = (GridView) findViewById(R.id.parking_grid);
-        String[] strings1 = {"1", "2", "3", "4", "5", "6", "7",
-                "8", "9", "10", "11", "12", "13", "14", "15"};
-        ArrayList<String> strings = new ArrayList<String>(Arrays.asList(strings1));
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.custom_list_item, strings);
-        MyCustomAdapter adapter = new MyCustomAdapter(getApplicationContext(), strings);
+
+        ArrayList<Ticket> tickets = new ArrayList<Ticket>();
+        for (int i = 1; i <= NSPOTS; i++) tickets.add(new Ticket(i, "ABC"+i));
+        tickets.set(7, null);
+        MyCustomAdapter adapter = new MyCustomAdapter(getApplicationContext(), tickets);
         gridView.setAdapter(adapter);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
