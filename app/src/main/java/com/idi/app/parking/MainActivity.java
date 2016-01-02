@@ -1,10 +1,12 @@
 package com.idi.app.parking;
 
+import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,9 +16,10 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AddCarDialogFragment.NoticeDialogListener{
 
     private int NSPOTS = 15;
+    private ArrayList<Ticket> tickets;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,18 +37,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        GridView gridView = (GridView) findViewById(R.id.parking_grid);
+        final GridView gridView = (GridView) findViewById(R.id.parking_grid);
 
-        ArrayList<Ticket> tickets = new ArrayList<Ticket>();
+        tickets = new ArrayList<Ticket>();
         for (int i = 1; i <= NSPOTS; i++) tickets.add(new Ticket(i, "ABC"+i));
         tickets.set(7, null);
-        MyCustomAdapter adapter = new MyCustomAdapter(getApplicationContext(), tickets);
+        final MyCustomAdapter adapter = new MyCustomAdapter(getApplicationContext(), tickets);
         gridView.setAdapter(adapter);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), "You clicked position " + position, Toast.LENGTH_SHORT).show();
+                Ticket ticket = tickets.get(position);
+                if (ticket == null) {
+                    DialogFragment fragment = new AddCarDialogFragment();
+                    fragment.show(getFragmentManager(), "check-in");
+                }
+                else {
+                    ticket.checkout();
+                    Toast.makeText(
+                            getApplicationContext(),
+                            "You clicked position " + position + ", ticket is " + ticket.getPrice() + "€",
+                            Toast.LENGTH_SHORT)
+                            .show();
+                    //tickets.set(position, new Ticket(position + 1, "new plate number"));
+                    //adapter.notifyDataSetChanged();
+                }
             }
         });
     }
@@ -70,5 +87,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        Log.d("PosClick", "hey ho");
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+
     }
 }
