@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements AddCarDialogFragm
 
     private int NSPOTS = 15;
     private ArrayList<Ticket> tickets;
+    private MyCustomAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +41,9 @@ public class MainActivity extends AppCompatActivity implements AddCarDialogFragm
         final GridView gridView = (GridView) findViewById(R.id.parking_grid);
 
         tickets = new ArrayList<Ticket>();
-        for (int i = 1; i <= NSPOTS; i++) tickets.add(new Ticket(i, "ABC"+i));
-        tickets.set(7, null);
-        final MyCustomAdapter adapter = new MyCustomAdapter(getApplicationContext(), tickets);
+        //for (int i = 1; i <= NSPOTS; i++) tickets.add(new Ticket(i, "ABC"+i));
+        for (int i = 1; i <= NSPOTS; i++) tickets.add(null);
+        adapter = new MyCustomAdapter(getApplicationContext(), tickets);
         gridView.setAdapter(adapter);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements AddCarDialogFragm
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Ticket ticket = tickets.get(position);
                 if (ticket == null) {
-                    DialogFragment fragment = AddCarDialogFragment.newInstance();
+                    DialogFragment fragment = AddCarDialogFragment.newInstance(position+1);
                     fragment.show(getFragmentManager(), "check-in");
                 }
                 else {
@@ -90,8 +91,11 @@ public class MainActivity extends AppCompatActivity implements AddCarDialogFragm
     }
 
     @Override
-    public void onDialogPositiveClick(DialogFragment dialog, String inputLicensePlate) {
+    public void onDialogPositiveClick(DialogFragment dialog, int spot, String inputLicensePlate) {
         Log.d("PosClick", inputLicensePlate);
+        Ticket ticket = new Ticket(spot, inputLicensePlate);
+        tickets.set(spot-1, ticket);
+        adapter.notifyDataSetChanged();
     }
 
     @Override

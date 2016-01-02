@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="24dp">
 
     <TextView
         android:layout_width="match_parent"
@@ -13,7 +14,7 @@
         android:id="@+id/licensePlateEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:hint="@string/hint_license"/>
 
 </LinearLayout>

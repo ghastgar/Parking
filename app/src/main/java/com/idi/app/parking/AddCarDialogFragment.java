@@ -7,8 +7,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.EditText;
@@ -20,40 +18,21 @@ import android.widget.Toast;
 public class AddCarDialogFragment extends DialogFragment {
 
     public interface NoticeDialogListener {
-        public void onDialogPositiveClick(DialogFragment dialog, String licensePlate);
+        public void onDialogPositiveClick(DialogFragment dialog, int spot, String licensePlate);
         public void onDialogNegativeClick(DialogFragment dialog);
     }
 
     NoticeDialogListener mListener;
-    static EditText editText;
+    int mSpot;
 
-    public static AddCarDialogFragment newInstance() {
-        final AddCarDialogFragment fragment = new AddCarDialogFragment();
-
-        editText = (EditText) getDialog().findViewById(R.id.licensePlateEditText);
-
-        //EditText inputCar = (EditText) alertDialog.findViewById(R.id.licensePlateEditText);
-        editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.length() > 0)
-                    ((AlertDialog) getDialog()).getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(true);
-                else ((AlertDialog) getDialog()).getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
-            }
-        });
+    public static AddCarDialogFragment newInstance(int spot) {
+        
+        Bundle args = new Bundle();
+        args.putInt("spot", spot);
+        AddCarDialogFragment fragment = new AddCarDialogFragment();
+        fragment.setArguments(args);
         return fragment;
     }
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -73,6 +52,7 @@ public class AddCarDialogFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
+        mSpot = getArguments().getInt("spot");
 
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
@@ -89,25 +69,14 @@ public class AddCarDialogFragment extends DialogFragment {
                         if (licensePlate.equals("")) {
                             Toast.makeText(getActivity().getApplicationContext(), "Escriu la matrícula del cotxe", Toast.LENGTH_SHORT).show();
                         }
-                        else mListener.onDialogPositiveClick(AddCarDialogFragment.this, licensePlate);
+                        else mListener.onDialogPositiveClick(AddCarDialogFragment.this, mSpot, licensePlate);
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         AddCarDialogFragment.this.getDialog().cancel();
                     }
-                });
-        /* alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-                EditText inputCar = (EditText) getDialog().findViewById(R.id.licensePlateEditText);
-                String licensePlate = inputCar.getText().toString();
-                if (licensePlate.equals("")) {
-                    ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
-                } else
-                    ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(true);
-            }
-        });*/
+                }).setTitle("Entrada cotxe");
 
         return builder.create();
     }
