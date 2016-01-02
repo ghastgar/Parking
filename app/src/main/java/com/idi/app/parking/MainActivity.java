@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements AddCarDialogFragm
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Ticket ticket = tickets.get(position);
                 if (ticket == null) {
-                    DialogFragment fragment = new AddCarDialogFragment();
+                    DialogFragment fragment = AddCarDialogFragment.newInstance();
                     fragment.show(getFragmentManager(), "check-in");
                 }
                 else {
@@ -90,8 +90,8 @@ public class MainActivity extends AppCompatActivity implements AddCarDialogFragm
     }
 
     @Override
-    public void onDialogPositiveClick(DialogFragment dialog) {
-        Log.d("PosClick", "hey ho");
+    public void onDialogPositiveClick(DialogFragment dialog, String inputLicensePlate) {
+        Log.d("PosClick", inputLicensePlate);
     }
 
     @Override
