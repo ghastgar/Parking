@@ -43,6 +43,10 @@ public class MainActivity extends AppCompatActivity implements AddCarDialogFragm
         tickets = new ArrayList<Ticket>();
         //for (int i = 1; i <= NSPOTS; i++) tickets.add(new Ticket(i, "ABC"+i));
         for (int i = 1; i <= NSPOTS; i++) tickets.add(null);
+
+        ParkingTicketOpenHelper db = new ParkingTicketOpenHelper(getApplicationContext());
+        tickets = db.getOpenTickets();
+
         adapter = new MyCustomAdapter(getApplicationContext(), tickets);
         gridView.setAdapter(adapter);
 
@@ -55,12 +59,14 @@ public class MainActivity extends AppCompatActivity implements AddCarDialogFragm
                     fragment.show(getFragmentManager(), "check-in");
                 }
                 else {
-                    ticket.checkout();
+                    ticket.checkout(getApplicationContext());
                     Toast.makeText(
                             getApplicationContext(),
                             "You clicked position " + position + ", ticket is " + ticket.getPrice() + "€",
                             Toast.LENGTH_SHORT)
                             .show();
+                    tickets.set(position, null);
+                    adapter.notifyDataSetChanged();
                     //tickets.set(position, new Ticket(position + 1, "new plate number"));
                     //adapter.notifyDataSetChanged();
                 }
@@ -93,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements AddCarDialogFragm
     @Override
     public void onDialogPositiveClick(DialogFragment dialog, int spot, String inputLicensePlate) {
         Log.d("PosClick", inputLicensePlate);
-        Ticket ticket = new Ticket(spot, inputLicensePlate);
+        Ticket ticket = new Ticket(spot, inputLicensePlate, getApplicationContext());
         tickets.set(spot-1, ticket);
         adapter.notifyDataSetChanged();
     }
