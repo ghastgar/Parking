@@ -27,6 +27,7 @@ public class Ticket {
         this.licensePlate = licensePlate;
         Calendar c = Calendar.getInstance();
         this.dateIn = c.getTime();
+        Log.e("Initial DateIn", dateIn.getTime()+"");
         ParkingTicketOpenHelper db = new ParkingTicketOpenHelper(context);
         this.id = db.addTicket(this.parkingSpot, this.licensePlate, this.dateIn.getTime());
     }
@@ -46,9 +47,9 @@ public class Ticket {
         this.price = (timeInSeconds/60)*PRICE_PER_MINUTE;
         Log.d("Ticket checkout", "Time: " + timeInSeconds/60 + " minutes, price: " + price + "€");
 
-        //ParkingTicketOpenHelper db = new ParkingTicketOpenHelper(context);
-        //db.closeOpenTicket(this.id, this.dateOut.getTime(), price+"");
-        Log.d("Ticket checkout", "IN : " + dateIn + ", OUT : " + dateOut);
+        ParkingTicketOpenHelper db = new ParkingTicketOpenHelper(context);
+        db.closeOpenTicket(this.id, this.dateOut.getTime(), price+"");
+        Log.d("Ticket checkout", "IN : " + dateIn +"("+dateIn.getTime() +")"+ ", OUT : " + dateOut);
         Log.d("Ticket checkout", "Time: " + timeInSeconds/60 + " minutes, price: " + price + "€");
     }
 

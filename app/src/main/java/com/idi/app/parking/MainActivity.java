@@ -1,6 +1,8 @@
 package com.idi.app.parking;
 
+import android.app.AlertDialog;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity implements AddCarDialogFragm
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                //Intent mIntent = new Intent(getApplicationContext(), Recaptacio.class);
+                //startActivity(mIntent);
             }
         });
 
@@ -59,19 +62,43 @@ public class MainActivity extends AppCompatActivity implements AddCarDialogFragm
                     fragment.show(getFragmentManager(), "check-in");
                 }
                 else {
-                    ticket.checkout(getApplicationContext());
+                    showCheckOutDialog(position, ticket);
+                    /*ticket.checkout(getApplicationContext());
                     Toast.makeText(
                             getApplicationContext(),
                             "You clicked position " + position + ", ticket is " + ticket.getPrice() + "€",
                             Toast.LENGTH_SHORT)
                             .show();
                     tickets.set(position, null);
-                    adapter.notifyDataSetChanged();
+                    adapter.notifyDataSetChanged();*/
                     //tickets.set(position, new Ticket(position + 1, "new plate number"));
                     //adapter.notifyDataSetChanged();
                 }
             }
         });
+    }
+
+    private void showCheckOutDialog(final int position, final Ticket ticket) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Retirar cotxe")
+                .setMessage("Vols generar el tiquet i deixar lliure la plaça "+ (position+1) +"?")
+                .setNegativeButton("Cancel·lar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Checkout cancelled
+                        dialog.cancel();
+                    }
+                })
+                .setPositiveButton("D'acord", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ticket.checkout(getApplicationContext());
+                        tickets.set(position, null);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     @Override

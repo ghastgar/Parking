@@ -49,7 +49,7 @@ public class ParkingTicketOpenHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_SPOT, spot);
         values.put(KEY_LICENSE_PLACE, licensePlate);
-        values.put(KEY_DATETIME_IN, dateTimeIN);
+        values.put(KEY_DATETIME_IN, dateTimeIN/1000);
         long res = db.insert(TICKETS_TABLE_NAME, null, values);
         db.close();
         return (int) res;
@@ -59,7 +59,7 @@ public class ParkingTicketOpenHelper extends SQLiteOpenHelper {
     public long closeOpenTicket(long id, long dateTimeOut, String price) {
         String filter = KEY_ID + "=" + id;
         ContentValues values = new ContentValues();
-        values.put(KEY_DATETIME_OUT, dateTimeOut);
+        values.put(KEY_DATETIME_OUT, dateTimeOut/1000);
         values.put(KEY_PRICE, price);
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -89,7 +89,7 @@ public class ParkingTicketOpenHelper extends SQLiteOpenHelper {
             int spot    = c.getInt(c.getColumnIndex(KEY_SPOT));
             String lp   = c.getString(c.getColumnIndex(KEY_LICENSE_PLACE));
             long dateIn = c.getInt(c.getColumnIndex(KEY_DATETIME_IN));
-            Ticket ticket = new Ticket(id, spot, lp, dateIn);
+            Ticket ticket = new Ticket(id, spot, lp, dateIn*1000);
             Log.e("Helper", "dateIn guardat : "+ dateIn);
             tickets.set(spot-1, ticket);
             c.moveToNext();
