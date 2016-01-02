@@ -76,7 +76,7 @@ public class AddCarDialogFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         AddCarDialogFragment.this.getDialog().cancel();
                     }
-                }).setTitle("Entrada cotxe");
+                }).setTitle("Entrada cotxe").setMessage("Plaça " + mSpot);
 
         return builder.create();
     }

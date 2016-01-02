@@ -3,13 +3,19 @@
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="24dp">
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
+    android:paddingBottom="16dp"
+    android:paddingTop="16dp"
+    >
+
+    <!--
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/license_plate_number"/>
-
+    -->
     <EditText
         android:id="@+id/licensePlateEditText"
         android:layout_width="match_parent"

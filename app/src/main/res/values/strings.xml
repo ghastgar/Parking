@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Parking</string>
     <string name="action_settings">Settings</string>
-    <string name="hint_license">ABCD33X</string>
+    <string name="hint_license">Matrícula</string>
     <string name="license_plate_number">Número de matrícula</string>
     <string name="cancel">Cancel·lar</string>
 </resources>
