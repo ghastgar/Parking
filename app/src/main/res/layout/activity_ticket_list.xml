@@ -3,77 +3,87 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="4dp"
     android:gravity="center"
     android:padding="@dimen/activity_horizontal_margin">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <LinearLayout
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/fromDate"
+            android:gravity="center"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="4dp"
+            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/fromDate"
-                android:gravity="center"
-                android:layout_weight="0.5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true"
-                android:textColorHint="@color/dark_grey"
-                android:onClick="showFromDatePickerDialog"
-                android:text="@string/randDate"/>
-            <TextView
-                android:id="@+id/fromTime"
-                android:gravity="center"
-                android:layout_weight="0.5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:text="@string/randTime"
-                android:onClick="showFromTimePickerDialog"/>
-        </LinearLayout>
-        <LinearLayout
+            android:clickable="true"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="@color/colorPrimaryLight"
+            android:onClick="showFromDatePickerDialog"
+            android:text="@string/randDate"/>
+        <TextView
+            android:id="@+id/fromTime"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="4dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/toDate"
-                android:gravity="center"
-                android:layout_weight="0.5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:text="@string/randDate"
-                android:onClick="showToDatePickerDialog"/>
-            <TextView
-                android:id="@+id/toTime"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:clickable="true"
-                android:text="@string/randTime"
-                android:onClick="showToTimePickerDialog"/>
-        </LinearLayout>
+            android:clickable="true"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="@color/colorPrimaryLight"
+            android:text="@string/randTime"
+            android:onClick="showFromTimePickerDialog"/>
+        <TextView
+            android:id="@+id/toDate"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:textSize="14sp"
+            android:textColor="@color/colorPrimaryLight"
+            android:text="@string/randDate"
+            android:onClick="showToDatePickerDialog"/>
+        <TextView
+            android:id="@+id/toTime"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="4dp"
+            android:clickable="true"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="@color/colorPrimaryLight"
+            android:text="@string/randTime"
+            android:onClick="showToTimePickerDialog"/>
     </LinearLayout>
     <ListView
         android:id="@+id/ticketsList"
-        android:layout_weight="0.15"
+        android:layout_marginTop="4dp"
+        android:layout_weight="7"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp">
 
     </ListView>
 
     <TextView
         android:gravity="center"
         android:id="@+id/earnings"
-        android:layout_weight="0.9"
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="24sp"
+        android:layout_height="0dp"
+        android:textSize="22sp"
         android:text="Total Recaptat: 234.52€"/>
 
 </LinearLayout>

@@ -10,9 +10,11 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by pau on 02/01/16.
@@ -86,12 +88,14 @@ public class TicketListActivity extends AppCompatActivity {
     }
 
     private void updateTextViews() {
-        DateFormat df = DateFormat.getDateInstance();
+        //DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+        SimpleDateFormat sdf = new SimpleDateFormat("d/M/yy", Locale.getDefault());
         DateFormat tf = DateFormat.getTimeInstance(DateFormat.SHORT);
 
-        fromDate.setText("De: " + df.format(fromC.getTime()));
+
+        fromDate.setText("De: " + sdf.format(fromC.getTime()));
         fromTime.setText(tf.format(fromC.getTime()));
-        toDate.setText("A:   " + df.format(toC.getTime()));
+        toDate.setText("A:   " + sdf.format(toC.getTime()));
         toTime.setText(tf.format(toC.getTime()));
 
         double total = 0.0;
