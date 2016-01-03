@@ -89,12 +89,13 @@ public class ParkingTicketOpenHelper extends SQLiteOpenHelper {
             int id      = c.getInt(c.getColumnIndex(KEY_ID));
             int spot    = c.getInt(c.getColumnIndex(KEY_SPOT));
             String lp   = c.getString(c.getColumnIndex(KEY_LICENSE_PLACE));
-            long dateIn = c.getInt(c.getColumnIndex(KEY_DATETIME_IN));
+            long dateIn = c.getLong(c.getColumnIndex(KEY_DATETIME_IN));
             Ticket ticket = new Ticket(id, spot, lp, dateIn*1000);
             Log.e("Helper", "dateIn guardat : "+ dateIn);
             tickets.set(spot-1, ticket);
             c.moveToNext();
         }
+        db.close();
         return tickets;
     }
 
@@ -112,14 +113,16 @@ public class ParkingTicketOpenHelper extends SQLiteOpenHelper {
     }
 
     public ArrayList<Ticket> getTodayTickets() {
-        long now = Calendar.getInstance().getTimeInMillis()/1000;
         Calendar calendar = Calendar.getInstance();
+        long now = calendar.getTimeInMillis();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
-        long midnight = calendar.getTimeInMillis()/1000;
+        long midnight = calendar.getTimeInMillis();
         return getTicketsBetweenDates(midnight, now);
     }
 
-    private ArrayList<Ticket> getTicketsBetweenDates(long from, long to) {
+    public ArrayList<Ticket> getTicketsBetweenDates(long from, long to) {
+        from = from/1000;
+        to = to/1000;
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<Ticket> tickets = new ArrayList<>();
 
@@ -136,11 +139,11 @@ public class ParkingTicketOpenHelper extends SQLiteOpenHelper {
             int id      = c.getInt(c.getColumnIndex(KEY_ID));
             int spot    = c.getInt(c.getColumnIndex(KEY_SPOT));
             String lp   = c.getString(c.getColumnIndex(KEY_LICENSE_PLACE));
-            long dateIn = c.getInt(c.getColumnIndex(KEY_DATETIME_IN))*1000;
-            long dateOut= c.getInt(c.getColumnIndex(KEY_DATETIME_OUT))*1000;
+            long dateIn = c.getLong(c.getColumnIndex(KEY_DATETIME_IN))*1000;
+            long dateOut= c.getLong(c.getColumnIndex(KEY_DATETIME_OUT))*1000;
             String s    = c.getString(c.getColumnIndex(KEY_PRICE));
             double price = Double.parseDouble(s);
-            Ticket ticket = new Ticket(id, spot, lp, dateIn*1000, dateOut*1000, price);
+            Ticket ticket = new Ticket(id, spot, lp, dateIn, dateOut, price);
             tickets.add(ticket);
             c.moveToNext();
         }

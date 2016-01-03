@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,12 +41,13 @@ public class TicketListCustomAdapter extends ArrayAdapter {
             licensePlateTV.setText(ticket.getLicensePlate());
             String text = "Plaça " + ticket.getParkingSpot();
             spotTV.setText(text);
-            String text1 = "De " + ticket.getDateIn();
+            DateFormat df = DateFormat.getDateTimeInstance();
+            String text1 = "De " + df.format(ticket.getDateIn());
             dateInTV.setText(text1);
-            String text2 = "De " + ticket.getDateOut();
+            String text2 = "A   " + df.format(ticket.getDateOut());
             dateOutTV.setText(text2);
-            String text3 = ticket.getPrice() + "€";
-            price.setText(text3);
+            String priceString = String.format("%.2f", ticket.getPrice()) + "€";
+            price.setText(priceString);
         }
         return view;
     }

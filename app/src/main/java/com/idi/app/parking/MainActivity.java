@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -16,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements AddCarDialogFragment.NoticeDialogListener{
@@ -35,17 +35,20 @@ public class MainActivity extends AppCompatActivity implements AddCarDialogFragm
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                //        .setAction("Action", null).show();
                 Intent mIntent = new Intent(getApplicationContext(), TicketListActivity.class);
-                startActivity(mIntent);
+                mIntent.putExtra("from", (long) 0);
+                mIntent.putExtra("to", (long) 0);
+                if (mIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(mIntent);
+                }
             }
         });
 
         final GridView gridView = (GridView) findViewById(R.id.parking_grid);
 
         tickets = new ArrayList<Ticket>();
-        //for (int i = 1; i <= NSPOTS; i++) tickets.add(new Ticket(i, "ABC"+i));
         for (int i = 1; i <= NSPOTS; i++) tickets.add(null);
 
         ParkingTicketOpenHelper db = new ParkingTicketOpenHelper(getApplicationContext());
@@ -94,10 +97,28 @@ public class MainActivity extends AppCompatActivity implements AddCarDialogFragm
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         ticket.checkout(getApplicationContext());
+                        showTicket(ticket);
                         tickets.set(position, null);
                         adapter.notifyDataSetChanged();
                     }
                 });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    private void showTicket(Ticket ticket) {
+        DateFormat df = DateFormat.getDateTimeInstance();
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Tiquet cotxe " + ticket.getLicensePlate())
+                .setMessage("Entrada: " + df.format(ticket.getDateIn()) + "\n" +
+                            "Sortida: " + df.format(ticket.getDateOut()) + "\n" +
+                            "Preu: " + String.format("%.2f", ticket.getPrice()) + "€ \n"
+                ).setPositiveButton("Fet", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }

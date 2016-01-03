@@ -38,7 +38,7 @@ public class ParkingGridCustomAdapter extends ArrayAdapter {
             idTV.setTextColor(context.getResources().getColor(R.color.red));
         } else {
             idTV.setText((position+1)+"");
-            licensePlateTV.setText("lliure");
+            licensePlateTV.setText("Lliure");
         }
         return view;
     }
