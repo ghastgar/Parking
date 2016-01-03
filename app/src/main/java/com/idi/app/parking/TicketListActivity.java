@@ -37,11 +37,6 @@ public class TicketListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ticket_list);
 
-//        Intent intent = getIntent();
-//        long from = intent.getExtras().getLong("from");
-//        long to = intent.getExtras().getLong("to");
-        // TODO: remove intent extras, currently not used
-
         earnings = (TextView) findViewById(R.id.earnings);
         activity = this;
         db = new ParkingTicketOpenHelper(getApplicationContext());
@@ -59,8 +54,9 @@ public class TicketListActivity extends AppCompatActivity {
             fromC.setTime(new Date(fromLong));
             toC.setTime(new Date(toLong));
         } else {
-            Calendar calendar = Calendar.getInstance();
             toC = Calendar.getInstance();
+            toC.set(Calendar.SECOND, 59);
+            Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.HOUR_OF_DAY, 0);
             calendar.set(Calendar.MINUTE, 0);
             calendar.set(Calendar.SECOND, 0);
@@ -91,7 +87,7 @@ public class TicketListActivity extends AppCompatActivity {
 
     private void updateTextViews() {
         DateFormat df = DateFormat.getDateInstance();
-        DateFormat tf = DateFormat.getTimeInstance();
+        DateFormat tf = DateFormat.getTimeInstance(DateFormat.SHORT);
 
         fromDate.setText("De: " + df.format(fromC.getTime()));
         fromTime.setText(tf.format(fromC.getTime()));

@@ -38,8 +38,6 @@ public class MainActivity extends AppCompatActivity implements AddCarDialogFragm
                 //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 //        .setAction("Action", null).show();
                 Intent mIntent = new Intent(getApplicationContext(), TicketListActivity.class);
-                mIntent.putExtra("from", (long) 0);
-                mIntent.putExtra("to", (long) 0);
                 if (mIntent.resolveActivity(getPackageManager()) != null) {
                     startActivity(mIntent);
                 }
