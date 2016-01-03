@@ -3,6 +3,7 @@ package com.idi.app.parking;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -21,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements AddCarDialogFragm
 
     private int NSPOTS = 15;
     private ArrayList<Ticket> tickets;
-    private MyCustomAdapter adapter;
+    private ParkingGridCustomAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +37,8 @@ public class MainActivity extends AppCompatActivity implements AddCarDialogFragm
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                //Intent mIntent = new Intent(getApplicationContext(), Recaptacio.class);
-                //startActivity(mIntent);
+                Intent mIntent = new Intent(getApplicationContext(), TicketListActivity.class);
+                startActivity(mIntent);
             }
         });
 
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements AddCarDialogFragm
         ParkingTicketOpenHelper db = new ParkingTicketOpenHelper(getApplicationContext());
         tickets = db.getOpenTickets();
 
-        adapter = new MyCustomAdapter(getApplicationContext(), tickets);
+        adapter = new ParkingGridCustomAdapter(getApplicationContext(), tickets);
         gridView.setAdapter(adapter);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

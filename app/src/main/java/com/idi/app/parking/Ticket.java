@@ -39,6 +39,15 @@ public class Ticket {
         this.dateIn = new Date(dateIn);
     }
 
+    public Ticket(int id, int parkingSpot, String licensePlate, long dateIn, long dateOut, double price) {
+        this.id = id;
+        this.parkingSpot = parkingSpot;
+        this.dateIn = new Date(dateIn);
+        this.licensePlate = licensePlate;
+        this.dateOut = new Date(dateOut);
+        this.price = price;
+    }
+
     public void checkout(Context context) {
         Calendar c = Calendar.getInstance();
         Log.d("Ticket checkout", "IN : " + dateIn + ", OUT : " + dateOut);
@@ -63,5 +72,13 @@ public class Ticket {
 
     public int getParkingSpot() {
         return parkingSpot;
+    }
+
+    public Date getDateIn() {
+        return dateIn;
+    }
+
+    public Date getDateOut() {
+        return dateOut;
     }
 }

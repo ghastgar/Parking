@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by pau on 02/01/16.
@@ -108,5 +109,41 @@ public class ParkingTicketOpenHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TICKETS_TABLE_NAME);
         // Create tables again
         onCreate(db);
+    }
+
+    public ArrayList<Ticket> getTodayTickets() {
+        long now = Calendar.getInstance().getTimeInMillis()/1000;
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        long midnight = calendar.getTimeInMillis()/1000;
+        return getTicketsBetweenDates(midnight, now);
+    }
+
+    private ArrayList<Ticket> getTicketsBetweenDates(long from, long to) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Ticket> tickets = new ArrayList<>();
+
+        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+        queryBuilder.setTables(TICKETS_TABLE_NAME);
+        queryBuilder.appendWhere(KEY_DATETIME_OUT + " IS NOT NULL AND ");
+        queryBuilder.appendWhere(KEY_DATETIME_IN + " >= " + from + " AND ");
+        queryBuilder.appendWhere(KEY_DATETIME_OUT + " <= " + to);
+        //queryBuilder.query(db, projectionIn, selection, selArgs, groupBy, having, sortOrder);
+
+        Cursor c = queryBuilder.query(db, null, null, null, null, null, KEY_DATETIME_IN + " ASC");
+        c.moveToFirst();
+        while (!c.isAfterLast()) {
+            int id      = c.getInt(c.getColumnIndex(KEY_ID));
+            int spot    = c.getInt(c.getColumnIndex(KEY_SPOT));
+            String lp   = c.getString(c.getColumnIndex(KEY_LICENSE_PLACE));
+            long dateIn = c.getInt(c.getColumnIndex(KEY_DATETIME_IN))*1000;
+            long dateOut= c.getInt(c.getColumnIndex(KEY_DATETIME_OUT))*1000;
+            String s    = c.getString(c.getColumnIndex(KEY_PRICE));
+            double price = Double.parseDouble(s);
+            Ticket ticket = new Ticket(id, spot, lp, dateIn*1000, dateOut*1000, price);
+            tickets.add(ticket);
+            c.moveToNext();
+        }
+        return tickets;
     }
 }

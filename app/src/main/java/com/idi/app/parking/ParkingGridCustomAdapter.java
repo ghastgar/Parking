@@ -12,13 +12,13 @@ import java.util.ArrayList;
 /**
  * Created by pau on 01/01/16.
  */
-public class MyCustomAdapter extends ArrayAdapter {
+public class ParkingGridCustomAdapter extends ArrayAdapter {
     private ArrayList<String> strings;
     private ArrayList<Ticket> tickets;
     private Context context;
 
-    public MyCustomAdapter(Context context, ArrayList<Ticket> tickets) {
-        super(context, R.layout.custom_list_item, tickets);
+    public ParkingGridCustomAdapter(Context context, ArrayList<Ticket> tickets) {
+        super(context, R.layout.parking_grid_item, tickets);
         this.context = context;
         this.tickets = tickets;
     }
@@ -27,7 +27,7 @@ public class MyCustomAdapter extends ArrayAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         //return super.getView(position, convertView, parent);
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = layoutInflater.inflate(R.layout.custom_list_item, parent, false);
+        View view = layoutInflater.inflate(R.layout.parking_grid_item, parent, false);
         TextView idTV = (TextView) view.findViewById(R.id.spotId);
         TextView licensePlateTV = (TextView) view.findViewById(R.id.licensePlate);
 
