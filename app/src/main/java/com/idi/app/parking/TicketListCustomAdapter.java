@@ -42,9 +42,9 @@ public class TicketListCustomAdapter extends ArrayAdapter {
             String text = "Plaça " + ticket.getParkingSpot();
             spotTV.setText(text);
             DateFormat df = DateFormat.getDateTimeInstance();
-            String text1 = "De " + df.format(ticket.getDateIn());
+            String text1 = "Entrada: " + df.format(ticket.getDateIn());
             dateInTV.setText(text1);
-            String text2 = "A   " + df.format(ticket.getDateOut());
+            String text2 = "Sortida:  " + df.format(ticket.getDateOut());
             dateOutTV.setText(text2);
             String priceString = String.format("%.2f", ticket.getPrice()) + "€";
             price.setText(priceString);

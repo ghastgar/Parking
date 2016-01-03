@@ -4,4 +4,6 @@
     <string name="hint_license">Matrícula</string>
     <string name="license_plate_number">Número de matrícula</string>
     <string name="cancel">Cancel·lar</string>
+    <string name="randDate">05/01/2016</string>
+    <string name="randTime">02:51</string>
 </resources>
