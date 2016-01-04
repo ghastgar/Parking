@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.idi.app.parking.AboutActivity"
+    android:gravity="center">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:gravity="center"
+        android:textColor="@color/dark_grey"
+        android:text="Parking"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:textColor="@color/colorPrimary"
+        android:text="@string/version"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:textColor="@color/colorPrimary"
+        android:text="@string/copyright"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:textColor="@color/colorPrimary"
+        android:text="@string/all_rights"/>
+
+</LinearLayout>

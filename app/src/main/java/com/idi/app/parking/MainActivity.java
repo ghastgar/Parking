@@ -35,8 +35,6 @@ public class MainActivity extends AppCompatActivity implements AddCarDialogFragm
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                //        .setAction("Action", null).show();
                 Intent mIntent = new Intent(getApplicationContext(), TicketListActivity.class);
                 if (mIntent.resolveActivity(getPackageManager()) != null) {
                     startActivity(mIntent);
@@ -65,16 +63,6 @@ public class MainActivity extends AppCompatActivity implements AddCarDialogFragm
                 }
                 else {
                     showCheckOutDialog(position, ticket);
-                    /*ticket.checkout(getApplicationContext());
-                    Toast.makeText(
-                            getApplicationContext(),
-                            "You clicked position " + position + ", ticket is " + ticket.getPrice() + "€",
-                            Toast.LENGTH_SHORT)
-                            .show();
-                    tickets.set(position, null);
-                    adapter.notifyDataSetChanged();*/
-                    //tickets.set(position, new Ticket(position + 1, "new plate number"));
-                    //adapter.notifyDataSetChanged();
                 }
             }
         });
@@ -82,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements AddCarDialogFragm
 
     private void showCheckOutDialog(final int position, final Ticket ticket) {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle("Retirar cotxe")
+        builder.setTitle("Sortida de vehicle")
                 .setMessage("Vols generar el tiquet i deixar lliure la plaça "+ (position+1) +"?")
                 .setNegativeButton("Cancel·lar", new DialogInterface.OnClickListener() {
                     @Override
@@ -109,8 +97,8 @@ public class MainActivity extends AppCompatActivity implements AddCarDialogFragm
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("Tiquet cotxe " + ticket.getLicensePlate())
                 .setMessage("Entrada: " + df.format(ticket.getDateIn()) + "\n" +
-                            "Sortida: " + df.format(ticket.getDateOut()) + "\n" +
-                            "Preu: " + String.format("%.2f", ticket.getPrice()) + "€ \n"
+                            "Sortida:  " + df.format(ticket.getDateOut()) + "\n" +
+                            "\nPreu: " + String.format("%.2f", ticket.getPrice()) + "€ \n"
                 ).setPositiveButton("Fet", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -136,8 +124,17 @@ public class MainActivity extends AppCompatActivity implements AddCarDialogFragm
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_about) {
+            Intent mIntent = new Intent(getApplicationContext(), AboutActivity.class);
+            if (mIntent.resolveActivity(getPackageManager()) != null) {
+                startActivity(mIntent);
+            }
+        }
+        else if (id == R.id.action_help) {
+            Intent mIntent = new Intent(getApplicationContext(), TicketListActivity.class);
+            if (mIntent.resolveActivity(getPackageManager()) != null) {
+                startActivity(mIntent);
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -153,6 +150,6 @@ public class MainActivity extends AppCompatActivity implements AddCarDialogFragm
 
     @Override
     public void onDialogNegativeClick(DialogFragment dialog) {
-
+        dialog.dismiss();
     }
 }

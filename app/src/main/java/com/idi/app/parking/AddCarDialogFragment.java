@@ -62,7 +62,6 @@ public class AddCarDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the positive button event back to the host activity
-                        // TODO: Create ticket and pass it as a 2nd parameter
                         EditText inputCar = (EditText) getDialog().findViewById(R.id.licensePlateEditText);
                         String licensePlate = inputCar.getText().toString();
                         Log.d("Dialog", "Input: " + licensePlate);
@@ -76,7 +75,7 @@ public class AddCarDialogFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         AddCarDialogFragment.this.getDialog().cancel();
                     }
-                }).setTitle("Entrada cotxe").setMessage("Plaça " + mSpot);
+                }).setTitle("Entrada de vehicle").setMessage("Plaça " + mSpot);
 
         return builder.create();
     }

@@ -6,4 +6,10 @@
     <string name="cancel">Cancel·lar</string>
     <string name="randDate">05/01/2016</string>
     <string name="randTime">02:51</string>
+    <string name="About">About</string>
+    <string name="help">Help</string>
+    <string name="title_activity_about">AboutActivity</string>
+    <string name="version">Versió 1.0.0</string>
+    <string name="copyright">© 2015&#8211;2015 Pau Oliver Farreny.</string>
+    <string name="all_rights">Tots els drets reservats.</string>
 </resources>
