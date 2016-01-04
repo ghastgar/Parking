@@ -9,6 +9,8 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -62,13 +64,6 @@ public class AddCarDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the positive button event back to the host activity
-                        EditText inputCar = (EditText) getDialog().findViewById(R.id.licensePlateEditText);
-                        String licensePlate = inputCar.getText().toString();
-                        Log.d("Dialog", "Input: " + licensePlate);
-                        if (licensePlate.equals("")) {
-                            Toast.makeText(getActivity().getApplicationContext(), "Escriu la matrícula del cotxe", Toast.LENGTH_SHORT).show();
-                        }
-                        else mListener.onDialogPositiveClick(AddCarDialogFragment.this, mSpot, licensePlate);
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -78,5 +73,31 @@ public class AddCarDialogFragment extends DialogFragment {
                 }).setTitle("Entrada de vehicle").setMessage("Plaça " + mSpot);
 
         return builder.create();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();    //super.onStart() is where dialog.show() is actually called on the underlying dialog, so we have to do it after this point
+        final AlertDialog d = (AlertDialog)getDialog();
+        if(d != null) {
+            Button positiveButton = d.getButton(Dialog.BUTTON_POSITIVE);
+            positiveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Send the positive button event back to the host activity
+                    EditText inputCar = (EditText) getDialog().findViewById(R.id.licensePlateEditText);
+                    String licensePlate = inputCar.getText().toString();
+                    Log.d("Dialog", "Input: " + licensePlate);
+                    if (!licensePlate.equals("")) {
+                        mListener.onDialogPositiveClick(AddCarDialogFragment.this, mSpot, licensePlate);
+                        d.dismiss();
+                    }
+                    else {
+                        Toast.makeText(getActivity().getApplicationContext(),
+                                "Escriu la matrícula del cotxe", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
     }
 }

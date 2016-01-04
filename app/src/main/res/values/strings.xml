@@ -12,4 +12,5 @@
     <string name="version">Versió 1.0.0</string>
     <string name="copyright">© 2015&#8211;2016 Pau Oliver Farreny.</string>
     <string name="all_rights">Tots els drets reservats.</string>
+    <string name="contact_email">pau.oliver@est.fib.upc.edu</string>
 </resources>
