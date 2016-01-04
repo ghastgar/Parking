@@ -90,7 +90,7 @@ public class TicketListActivity extends AppCompatActivity {
     private void updateTextViews() {
         //DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
         SimpleDateFormat sdf = new SimpleDateFormat("d/M/yy", Locale.getDefault());
-        DateFormat tf = DateFormat.getTimeInstance(DateFormat.SHORT);
+        DateFormat tf = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.FRANCE);
 
 
         fromDate.setText("De: " + sdf.format(fromC.getTime()));

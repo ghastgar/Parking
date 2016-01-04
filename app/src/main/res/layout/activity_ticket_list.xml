@@ -4,65 +4,68 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="4dp"
-    android:gravity="center"
+    android:gravity="top"
     android:padding="@dimen/activity_horizontal_margin">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
+        android:orientation="horizontal"
+        android:padding="0dp"
+        android:layout_margin="0dp"
+        style="?android:buttonBarStyle">
+        <Button
+            style="?android:buttonBarButtonStyle"
             android:id="@+id/fromDate"
+            android:padding="0dp"
+            android:layout_margin="0dp"
             android:gravity="center"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="4dp"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_weight="3.5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:clickable="true"
-            android:textStyle="bold"
             android:textSize="14sp"
             android:textColor="@color/colorPrimaryLight"
             android:onClick="showFromDatePickerDialog"
             android:text="@string/randDate"/>
-        <TextView
+        <Button
+            style="?android:buttonBarButtonStyle"
             android:id="@+id/fromTime"
+            android:padding="0dp"
+            android:layout_margin="0dp"
             android:gravity="center"
-            android:layout_weight="1"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="4dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:clickable="true"
-            android:textStyle="bold"
             android:textSize="14sp"
             android:textColor="@color/colorPrimaryLight"
             android:text="@string/randTime"
             android:onClick="showFromTimePickerDialog"/>
-        <TextView
+        <Button
+            style="?android:buttonBarButtonStyle"
             android:id="@+id/toDate"
+            android:padding="0dp"
+            android:layout_margin="0dp"
             android:gravity="center"
-            android:textStyle="bold"
-            android:layout_weight="1"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="4dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_weight="3.5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:clickable="true"
             android:textSize="14sp"
             android:textColor="@color/colorPrimaryLight"
             android:text="@string/randDate"
             android:onClick="showToDatePickerDialog"/>
-        <TextView
+        <Button
+            style="?android:buttonBarButtonStyle"
             android:id="@+id/toTime"
+            android:padding="0dp"
+            android:layout_margin="0dp"
             android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="4dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
             android:clickable="true"
-            android:textStyle="bold"
             android:textSize="14sp"
             android:textColor="@color/colorPrimaryLight"
             android:text="@string/randTime"
@@ -71,7 +74,7 @@
     <ListView
         android:id="@+id/ticketsList"
         android:layout_marginTop="4dp"
-        android:layout_weight="7"
+        android:layout_weight="9"
         android:layout_width="match_parent"
         android:layout_height="0dp">
 
@@ -80,7 +83,7 @@
     <TextView
         android:gravity="center"
         android:id="@+id/earnings"
-        android:layout_weight="1"
+        android:layout_weight="1.5"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:textSize="22sp"
