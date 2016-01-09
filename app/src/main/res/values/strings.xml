@@ -6,7 +6,7 @@
     <string name="cancel">Cancel·lar</string>
     <string name="randDate">05/01/2016</string>
     <string name="randTime">02:51</string>
-    <string name="About">Sobre l\'app</string>
+    <string name="About">Sobre l\'aplicació</string>
     <string name="help">Ajuda</string>
     <string name="title_activity_about">AboutActivity</string>
     <string name="version">Versió 1.0.0</string>
@@ -15,4 +15,15 @@
     <string name="contact_email">pau.oliver@est.fib.upc.edu</string>
     <string name="title_activity_help">Ajuda</string>
     <string name="title_activity_ticket_list">Recaptació</string>
+    <string name="help1">En obrir l\'aplicació, veurà el conjunt de places del pàrquing en forma de quadrícula. Cada plaça està representada pel seu número. Si una plaça està ocupada, aquest es mostra de color vermell i acompanyat del número de matrícula del vehicle que hi ha aparcat. Si el número de plaça és verd i va acompanyat del text \'Lliure\' és que aquesta està disponible per a ser usada.</string>
+    <string name="lliure_vs_ocupada">Plaça lliure vs. ocupada</string>
+    <string name="help_add">Afegir vehicle al pàrquing</string>
+    <string name="help2">Per a realitzar l\'entrada d\'un vehicle al pàrquing, cliqui sobre una de les places lliures. Si no n\'hi ha cap no es podrà dur a terme l\'acció. El seleccionar la plaça apareixerà un diàleg on introduir la matrícula del vehicle. Cliqui acceptar quan l\'hagi escrit perquè el vehicle quedi registrat al pàrquing.</string>
+    <string name="help_retirar">Retirar vehicle</string>
+    <string name="help3">Quan vulgui retirar un vehicle i generar el seu tiquet, premi la plaça que vol alliberar. Un cop confirmat que vol retirar el vehicle que l\'ocupa, vèurà la informació de la seva estada, incloent el preu del tiquet.</string>
+    <string name="help4">Prement el botó flotant de la part inferior dreta de la pantalla principal accedirà a la pantalla de recaptació.</string>
+    <string name="help5">A la secció Recaptació pot consultar la recaptació del pàrquing del dia i en qualsevol interval de temps concret. En accedir-hi es mostren totes les sortides de vehicles entre les 00:00h del dia actual i el present. Per a seleccionar un interval concret, cliqui sobre la data o hora que vol modificar. En fer-ho podrà canviar la data i hora inicials i finals de la franja de temps a tenir en compte. Els tiquets es mostren en forma de llista, i cadascun conté: matrícula del vehicle, plaça que ocupava, data i hora d\'entrada, data i hora de sortida, preu del tiquet. Sota la llista es mostra el total recaptat en el període, és a dir, la suma de preus dels tiquets de la llista.</string>
+    <string name="help_img_list">Llista de tiquets</string>
+    <string name="help_img_floatbutton">Botó flotant recaptació</string>
+    <string name="help_img_tiquet">Tiquet</string>
 </resources>

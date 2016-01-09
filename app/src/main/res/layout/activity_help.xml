@@ -18,7 +18,6 @@
 
             <TextView
                 android:gravity="center"
-                android:id="@+id/earnings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/TextAppearance.AppCompat.Large"
@@ -27,13 +26,76 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_margin="8dp"
-                style="@style/TextAppearance.AppCompat.Medium"
-                android:text="Pantalla principal"
-                />
+                style="@style/TextAppearance.AppCompat"
+                android:text="@string/help1" />
             <ImageView
+                android:contentDescription="@string/lliure_vs_ocupada"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:src="@drawable/lliure_vs_ocupada"
+                android:layout_gravity="center"
                 />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:text="@string/help_add" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                style="@style/TextAppearance.AppCompat"
+                android:text="@string/help2" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:text="@string/help_retirar" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                style="@style/TextAppearance.AppCompat"
+                android:text="@string/help3" />
+            <ImageView
+                android:contentDescription="@string/help_img_tiquet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/tiquet"
+                android:layout_gravity="center" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                style="@style/TextAppearance.AppCompat"
+                android:text="@string/help4" />
+            <ImageView
+                android:contentDescription="@string/help_img_floatbutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/floating_button"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/TextAppearance.AppCompat.Large"
+                android:text="@string/title_activity_ticket_list"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                style="@style/TextAppearance.AppCompat"
+                android:text="@string/help5" />
+            <ImageView
+                android:contentDescription="@string/help_img_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/list"
+                android:layout_gravity="center" />
 
         </LinearLayout>
 
