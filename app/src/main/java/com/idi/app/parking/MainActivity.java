@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements AddCarDialogFragm
             }
         }
         else if (id == R.id.action_help) {
-            Intent mIntent = new Intent(getApplicationContext(), TicketListActivity.class);
+            Intent mIntent = new Intent(getApplicationContext(), HelpActivity.class);
             if (mIntent.resolveActivity(getPackageManager()) != null) {
                 startActivity(mIntent);
             }
