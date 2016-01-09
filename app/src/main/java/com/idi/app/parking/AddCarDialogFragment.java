@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,6 @@ public class AddCarDialogFragment extends DialogFragment {
 
     public interface NoticeDialogListener {
         public void onDialogPositiveClick(DialogFragment dialog, int spot, String licensePlate);
-        public void onDialogNegativeClick(DialogFragment dialog);
     }
 
     NoticeDialogListener mListener;
@@ -79,9 +79,11 @@ public class AddCarDialogFragment extends DialogFragment {
     public void onStart() {
         super.onStart();    //super.onStart() is where dialog.show() is actually called on the underlying dialog, so we have to do it after this point
         final AlertDialog d = (AlertDialog)getDialog();
-        TextView spotET = (TextView) getDialog().findViewById(R.id.spot_to_add);
-        spotET.setText("Plaça " + mSpot);
         if(d != null) {
+            TextView spotET = (TextView) getDialog().findViewById(R.id.spot_to_add);
+            spotET.setText("Plaça " + mSpot);
+            EditText inputCar = (EditText) getDialog().findViewById(R.id.licensePlateEditText);
+            inputCar.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
             Button positiveButton = d.getButton(Dialog.BUTTON_POSITIVE);
             positiveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -96,7 +98,7 @@ public class AddCarDialogFragment extends DialogFragment {
                     }
                     else {
                         Toast.makeText(getActivity().getApplicationContext(),
-                                "Escriu la matrícula del cotxe", Toast.LENGTH_SHORT).show();
+                                "Escriu la matrícula del vehicle", Toast.LENGTH_SHORT).show();
                     }
                 }
             });

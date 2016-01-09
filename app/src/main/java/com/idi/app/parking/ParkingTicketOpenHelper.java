@@ -36,7 +36,7 @@ public class ParkingTicketOpenHelper extends SQLiteOpenHelper {
                     KEY_LICENSE_PLACE + " TEXT, " +
                     KEY_DATETIME_IN + " INTEGER, " +
                     KEY_DATETIME_OUT + " INTEGER, " +
-                    KEY_PRICE + " TEXT" + // TODO: ojo
+                    KEY_PRICE + " TEXT" +
             ");";
 
 
@@ -129,9 +129,8 @@ public class ParkingTicketOpenHelper extends SQLiteOpenHelper {
         SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
         queryBuilder.setTables(TICKETS_TABLE_NAME);
         queryBuilder.appendWhere(KEY_DATETIME_OUT + " IS NOT NULL AND ");
-        queryBuilder.appendWhere(KEY_DATETIME_IN + " >= " + from + " AND ");
+        queryBuilder.appendWhere(KEY_DATETIME_OUT + " >= " + from + " AND ");
         queryBuilder.appendWhere(KEY_DATETIME_OUT + " <= " + to);
-        //queryBuilder.query(db, projectionIn, selection, selArgs, groupBy, having, sortOrder);
 
         Cursor c = queryBuilder.query(db, null, null, null, null, null, KEY_DATETIME_IN + " ASC");
         c.moveToFirst();

@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -58,10 +59,9 @@ public class MainActivity extends AppCompatActivity implements AddCarDialogFragm
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Ticket ticket = tickets.get(position);
                 if (ticket == null) {
-                    DialogFragment fragment = AddCarDialogFragment.newInstance(position+1);
+                    DialogFragment fragment = AddCarDialogFragment.newInstance(position + 1);
                     fragment.show(getFragmentManager(), "check-in");
-                }
-                else {
+                } else {
                     showCheckOutDialog(position, ticket);
                 }
             }
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements AddCarDialogFragm
     private void showCheckOutDialog(final int position, final Ticket ticket) {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("Sortida de vehicle")
-                .setMessage("Vols generar el tiquet i deixar lliure la plaça "+ (position+1) +"?")
+                .setMessage("Vols generar el tiquet i deixar lliure la plaça " + (position + 1) + "?")
                 .setNegativeButton("Cancel·lar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -143,13 +143,22 @@ public class MainActivity extends AppCompatActivity implements AddCarDialogFragm
     @Override
     public void onDialogPositiveClick(DialogFragment dialog, int spot, String inputLicensePlate) {
         Log.d("PosClick", inputLicensePlate);
+        for (int i = 0; i < tickets.size(); ++i) {
+            if (tickets.get(i) != null) {
+                Ticket ticket = tickets.get(i);
+                if (ticket.getLicensePlate().equals(inputLicensePlate)) {
+                    Toast.makeText(
+                            getApplicationContext(),
+                            "Aquest vehicle ja és al pàrquing! Està aparcat a la plaça " + (i+1) + ". Tria una altra matrícula.",
+                            Toast.LENGTH_LONG)
+                            .show();
+                    return;
+                }
+            }
+        }
         Ticket ticket = new Ticket(spot, inputLicensePlate, getApplicationContext());
         tickets.set(spot-1, ticket);
         adapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void onDialogNegativeClick(DialogFragment dialog) {
-        dialog.dismiss();
-    }
 }
