@@ -1,11 +1,16 @@
 package com.idi.app.parking;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -16,19 +21,33 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements AddCarDialogFragment.NoticeDialogListener{
 
     private int NSPOTS = 15;
     private ArrayList<Ticket> tickets;
     private ParkingGridCustomAdapter adapter;
+    private ParkingTicketOpenHelper db;
+
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        verifyStoragePermissions(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -48,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements AddCarDialogFragm
         tickets = new ArrayList<Ticket>();
         for (int i = 1; i <= NSPOTS; i++) tickets.add(null);
 
-        ParkingTicketOpenHelper db = new ParkingTicketOpenHelper(getApplicationContext());
+        db = new ParkingTicketOpenHelper(getApplicationContext());
         tickets = db.getOpenTickets();
 
         adapter = new ParkingGridCustomAdapter(getApplicationContext(), tickets);
@@ -136,7 +155,46 @@ public class MainActivity extends AppCompatActivity implements AddCarDialogFragm
                 startActivity(mIntent);
             }
         }
+        else if (id == R.id.action_export) {
+            File f = null;
+            Calendar cal = Calendar.getInstance();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            String timeStamp = sdf.format(cal.getTime());
+            try {
 
+                String extr = Environment.getExternalStorageDirectory().toString();
+                File mFolder = new File(extr + "/csv");
+                if (!mFolder.exists()) {
+                    mFolder.mkdir();
+                }
+
+                String fileName = "DBtiquets_" + timeStamp + ".csv";
+
+                f = new File(mFolder.getAbsolutePath(), fileName);
+                int i = 1;
+                while (!f.createNewFile()) {
+                    fileName = "DBtiquets_" + timeStamp + "_" + i + ".csv";
+                    ++i;
+                    f = new File(mFolder.getAbsolutePath(), fileName);
+                }
+                FileOutputStream fOut = new FileOutputStream(f);
+                OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
+                myOutWriter.append("Número tiquet,Plaça,Matrícula,Entrada,Sortida,Preu");
+                myOutWriter.append("\n");
+                myOutWriter.append(db.getDBContentsForCSV());
+                myOutWriter.close();
+                fOut.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(getApplicationContext(),
+                        "Error exportant les dades",
+                        Toast.LENGTH_SHORT).show();
+
+            }
+            if (f != null) Toast.makeText(getApplicationContext(),
+                    "Activitat històrica del pàrquing exportada a " + f.getAbsolutePath(),
+                    Toast.LENGTH_LONG).show();
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -159,6 +217,20 @@ public class MainActivity extends AppCompatActivity implements AddCarDialogFragm
         Ticket ticket = new Ticket(spot, inputLicensePlate, getApplicationContext());
         tickets.set(spot-1, ticket);
         adapter.notifyDataSetChanged();
+    }
+
+    public static void verifyStoragePermissions(Activity activity) {
+        // Check if we have write permission
+        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
+        }
     }
 
 }

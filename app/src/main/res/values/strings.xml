@@ -26,4 +26,5 @@
     <string name="help_img_list">Llista de tiquets</string>
     <string name="help_img_floatbutton">Botó flotant recaptació</string>
     <string name="help_img_tiquet">Tiquet</string>
+    <string name="exportDB">Exportar dades a CSV</string>
 </resources>

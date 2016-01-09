@@ -8,8 +8,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Created by pau on 02/01/16.
@@ -147,5 +149,37 @@ public class ParkingTicketOpenHelper extends SQLiteOpenHelper {
             c.moveToNext();
         }
         return tickets;
+    }
+
+    public String getDBContentsForCSV() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+        queryBuilder.setTables(TICKETS_TABLE_NAME);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+
+        String res = "";
+        Cursor c = queryBuilder.query(db, null, null, null, null, null, null);
+        c.moveToFirst();
+        while (!c.isAfterLast()) {
+            int id = c.getInt(c.getColumnIndex(KEY_ID));
+            int spot = c.getInt(c.getColumnIndex(KEY_SPOT));
+            String lp = c.getString(c.getColumnIndex(KEY_LICENSE_PLACE));
+            long dateIn = c.getLong(c.getColumnIndex(KEY_DATETIME_IN))*1000;
+            String dateInS = sdf.format(dateIn);
+            String dateOutS = "";
+            String priceS = "";
+            if (!c.isNull((c.getColumnIndex(KEY_DATETIME_OUT)))) {
+                long dateOut = c.getLong(c.getColumnIndex(KEY_DATETIME_OUT)) * 1000;
+                dateOutS = sdf.format(dateOut);
+                priceS = c.getString(c.getColumnIndex(KEY_PRICE));
+            }
+            res += id + "," + spot + "," + lp + "," + dateInS + "," + dateOutS + "," + priceS;
+            res += "\n";
+            c.moveToNext();
+        }
+        c.close();
+        db.close();
+        return res;
     }
 }
