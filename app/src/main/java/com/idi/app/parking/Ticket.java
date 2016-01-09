@@ -6,9 +6,6 @@ import android.util.Log;
 import java.util.Calendar;
 import java.util.Date;
 
-/**
- * Created by pau on 01/01/16.
- */
 public class Ticket {
 
     private static Double PRICE_PER_MINUTE = 0.02;
@@ -22,7 +19,6 @@ public class Ticket {
     private double price;
 
     public Ticket(int spot, String licensePlate, Context context) {
-        // if (spot <= 0 || spot > 15) return;
         this.parkingSpot = spot;
         this.licensePlate = licensePlate;
         Calendar c = Calendar.getInstance();

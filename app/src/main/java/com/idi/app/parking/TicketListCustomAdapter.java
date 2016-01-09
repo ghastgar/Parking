@@ -11,9 +11,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by pau on 03/01/16.
- */
+
 public class TicketListCustomAdapter extends ArrayAdapter {
 
     private Context context;

@@ -9,9 +9,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by pau on 01/01/16.
- */
 public class ParkingGridCustomAdapter extends ArrayAdapter {
     private ArrayList<String> strings;
     private ArrayList<Ticket> tickets;

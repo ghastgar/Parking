@@ -16,13 +16,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-/**
- * Created by pau on 02/01/16.
- */
 public class AddCarDialogFragment extends DialogFragment {
 
     public interface NoticeDialogListener {
-        public void onDialogPositiveClick(DialogFragment dialog, int spot, String licensePlate);
+        void onDialogPositiveClick(DialogFragment dialog, int spot, String licensePlate);
     }
 
     NoticeDialogListener mListener;
@@ -83,7 +80,7 @@ public class AddCarDialogFragment extends DialogFragment {
             TextView spotET = (TextView) getDialog().findViewById(R.id.spot_to_add);
             spotET.setText("Plaça " + mSpot);
             EditText inputCar = (EditText) getDialog().findViewById(R.id.licensePlateEditText);
-            inputCar.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
+            inputCar.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
             Button positiveButton = d.getButton(Dialog.BUTTON_POSITIVE);
             positiveButton.setOnClickListener(new View.OnClickListener() {
                 @Override

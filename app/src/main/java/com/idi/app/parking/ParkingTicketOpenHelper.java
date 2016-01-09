@@ -13,12 +13,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-/**
- * Created by pau on 02/01/16.
- */
 public class ParkingTicketOpenHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "tickets.db";
     private static final String TICKETS_TABLE_NAME = "tickets";
     private static final int PARKING_SIZE = 15;

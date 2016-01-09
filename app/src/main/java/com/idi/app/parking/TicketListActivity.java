@@ -16,9 +16,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-/**
- * Created by pau on 02/01/16.
- */
 public class TicketListActivity extends AppCompatActivity {
 
     private TicketListActivity activity;
