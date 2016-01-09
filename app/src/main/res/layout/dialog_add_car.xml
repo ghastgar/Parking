@@ -6,14 +6,16 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingBottom="16dp"
-    android:paddingTop="0dp"
+    android:paddingTop="16dp"
     >
 
-    <!--
+
     <TextView
+        android:id="@+id/spot_to_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/license_plate_number"/> -->
+        style="@style/TextAppearance.AppCompat"
+        android:text="Plaça 7"/>
 
     <EditText
         android:id="@+id/licensePlateEditText"

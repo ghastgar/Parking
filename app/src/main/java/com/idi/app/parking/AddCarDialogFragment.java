@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -70,8 +71,7 @@ public class AddCarDialogFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         AddCarDialogFragment.this.getDialog().cancel();
                     }
-                }).setTitle("Entrada de vehicle").setMessage("Plaça " + mSpot);
-
+                }).setTitle("Entrada de vehicle");
         return builder.create();
     }
 
@@ -79,6 +79,8 @@ public class AddCarDialogFragment extends DialogFragment {
     public void onStart() {
         super.onStart();    //super.onStart() is where dialog.show() is actually called on the underlying dialog, so we have to do it after this point
         final AlertDialog d = (AlertDialog)getDialog();
+        TextView spotET = (TextView) getDialog().findViewById(R.id.spot_to_add);
+        spotET.setText("Plaça " + mSpot);
         if(d != null) {
             Button positiveButton = d.getButton(Dialog.BUTTON_POSITIVE);
             positiveButton.setOnClickListener(new View.OnClickListener() {
